@@ -1,0 +1,20 @@
+<mat-drawer-container class="example-container w-full h-full">
+  <mat-drawer
+    #drawer
+    mode="side"
+    class="custom-drawer px-4 py-5"
+    [opened]="drawerOpened"
+    [style.width.px]="drawerWidth"
+  >
+    <app-navigation></app-navigation>
+  </mat-drawer>
+  <mat-drawer-content class="px-5">
+    <app-header
+      [drawerOpened]="drawerOpened"
+      [drawerWidth]="drawerWidth"
+      (messageDrawerOpened)="receiveResultDrawerOpened($event)"
+      (messageDrawerWidth)="receiveResultDrawerWidth($event)"
+    ></app-header>
+    <router-outlet></router-outlet>
+  </mat-drawer-content>
+</mat-drawer-container>
