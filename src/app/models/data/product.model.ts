@@ -5,4 +5,6 @@ export class Product {
     price ?: string;
     stock ?: string;
     date ?: Date;
+    categoryId ?: string;
+    categoryName ?: string;
 }

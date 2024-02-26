@@ -1,6 +1,6 @@
 <nav role="navigation" class="flex flex-col gap-2">
   <a
-    href={{option.link}}
+    [routerLink]="[option.link]"
     routerLinkActive="active"
     *ngFor="let option of menuOptions"
     >{{ option.label }}</a

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuOption } from 'src/app/models/features/menu-option.interface';
-import { MENU_OPTIONS } from 'src/app/models/features/menu-options';
+import { MenuOption } from 'src/app/models/features/menu/menu-option.interface';
+import { MENU_OPTIONS } from 'src/app/models/features/menu/menu-options';
 
 @Component({
   selector: 'app-navigation',
