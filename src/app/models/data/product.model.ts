@@ -4,7 +4,7 @@ export class Product {
     description ?: string;
     price ?: string;
     stock ?: string;
-    date ?: Date;
+    date ?: string;
     categoryId ?: string;
     categoryName ?: string;
 }

@@ -9,7 +9,7 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class ReusableTableComponent implements OnInit {
   @Input() columns: TableColumn[] = [];
-  @Input() data: any[] = [];
+  @Input() data?: any;
 
   dataSource = new MatTableDataSource<any>();
   displayedColumns: string[] = [];
@@ -19,7 +19,7 @@ export class ReusableTableComponent implements OnInit {
   }
 
   ngOnChanges(): void {
-    this.dataSource.data = this.data;
+    this.dataSource.data = this.data.filteredData;
     this.displayedColumns = this.columns.map(column => column.field);
   }
 }

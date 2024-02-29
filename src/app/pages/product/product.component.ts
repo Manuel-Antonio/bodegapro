@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { Product } from 'src/app/models/data/product.model';
 import { TableColumn } from 'src/app/models/features/table/table-column';
+import {dateFormat} from 'src/app/utils/dateUtils'
 
 @Component({
   selector: 'app-product',
@@ -8,7 +11,7 @@ import { TableColumn } from 'src/app/models/features/table/table-column';
   styleUrls: ['./product.component.css']
 })
 export class ProductComponent implements OnInit {
-  ELEMENT_DATA: TableColumn[] = [
+  ELEMENT_COLUMNS: TableColumn[] = [
     { field: 'id', header: '#' },
     { field: 'name', header: 'Nombre' },
     { field: 'description', header: 'Descripcion' },
@@ -16,16 +19,14 @@ export class ProductComponent implements OnInit {
     { field: 'stock', header: 'Cantidad' },
     { field: 'date', header: 'Ultima modificacion' },
   ];
-  displayedColumns: TableColumn[] = this.ELEMENT_DATA;
-
-  dataSource: Product[] = [
+  ELEMENT_DATA: Product[] = [
     {
       id: '1',
       name: 'Camisa',
       description: 'Camisa de algodón para hombre',
       price: '25.99',
       stock: '100',
-      date: new Date('2024-02-22')
+      date: dateFormat(new Date('2024-02-22'), "DD-MM-YYYY HH:mm:ss")
     },
     {
       id: '2',
@@ -33,7 +34,7 @@ export class ProductComponent implements OnInit {
       description: 'Pantalón de mezclilla para mujer',
       price: '39.99',
       stock: '75',
-      date: new Date('2024-02-21')
+      date: dateFormat(new Date('2024-02-21'), "DD-MM-YYYY HH:mm:ss")
     },
     {
       id: '3',
@@ -41,7 +42,7 @@ export class ProductComponent implements OnInit {
       description: 'Zapatos deportivos para correr',
       price: '49.99',
       stock: '50',
-      date: new Date('2024-02-20')
+      date: dateFormat(new Date('2024-02-20'), "DD-MM-YYYY HH:mm:ss")
     },
     {
       id: '4',
@@ -49,7 +50,7 @@ export class ProductComponent implements OnInit {
       description: 'Teléfono inteligente con pantalla táctil',
       price: '299.99',
       stock: '30',
-      date: new Date('2024-02-19')
+      date: dateFormat(new Date('2024-02-19'), "DD-MM-YYYY HH:mm:ss")
     },
     {
       id: '5',
@@ -57,7 +58,7 @@ export class ProductComponent implements OnInit {
       description: 'Computadora portátil con procesador rápido',
       price: '699.99',
       stock: '20',
-      date: new Date('2024-02-18')
+      date: dateFormat(new Date('2024-02-18'), "DD-MM-YYYY HH:mm:ss")
     },
     {
       id: '6',
@@ -65,7 +66,7 @@ export class ProductComponent implements OnInit {
       description: 'Teclado inalámbrico ergonómico',
       price: '49.99',
       stock: '40',
-      date: new Date('2024-02-17')
+      date: dateFormat(new Date('2024-02-17'), "DD-MM-YYYY HH:mm:ss")
     },
     {
       id: '7',
@@ -73,7 +74,7 @@ export class ProductComponent implements OnInit {
       description: 'Mouse óptico con sensor de alta precisión',
       price: '19.99',
       stock: '60',
-      date: new Date('2024-02-16')
+      date: dateFormat(new Date('2024-02-16'), "DD-MM-YYYY HH:mm:ss")
     },
     {
       id: '8',
@@ -81,7 +82,7 @@ export class ProductComponent implements OnInit {
       description: 'Auriculares Bluetooth con cancelación de ruido',
       price: '79.99',
       stock: '25',
-      date: new Date('2024-02-15')
+      date: dateFormat(new Date('2024-02-15'), "DD-MM-YYYY HH:mm:ss")
     },
     {
       id: '9',
@@ -89,7 +90,7 @@ export class ProductComponent implements OnInit {
       description: 'Cámara digital con lente intercambiable',
       price: '199.99',
       stock: '15',
-      date: new Date('2024-02-14')
+      date: dateFormat(new Date('2024-02-14'), "DD-MM-YYYY HH:mm:ss")
     },
     {
       id: '10',
@@ -97,13 +98,25 @@ export class ProductComponent implements OnInit {
       description: 'Impresora multifuncional de inyección de tinta',
       price: '129.99',
       stock: '35',
-      date: new Date('2024-02-13')
+      date: dateFormat(new Date('2024-02-13'), "DD-MM-YYYY HH:mm:ss")
     }
   ];
 
+  displayedColumns: TableColumn[] = this.ELEMENT_COLUMNS;
+  dataSource = new MatTableDataSource<Product>(this.ELEMENT_DATA);
+  dataFilter = new MatTableDataSource<Product>();
+
+  dataFields = this.ELEMENT_COLUMNS.map(x => x.field);
+
+  @ViewChild(MatPaginator) paginator ?: MatPaginator;
   constructor() { }
 
+
   ngOnInit() {
+    this.dataFilter =  this.dataSource;
   }
 
+  receiveDataFilter(dataReceive : MatTableDataSource<Product>) {
+    this.dataFilter = dataReceive;
+  }
 }
